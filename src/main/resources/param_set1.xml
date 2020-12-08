@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edf_parameters>
+	<quality>1</quality>
+	<topology>1</topology>
+	<colorConversionMethod>0</colorConversionMethod>
+</edf_parameters>
