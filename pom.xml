@@ -105,6 +105,15 @@
 
 	<developers>
 		<developer>
+			<name>Maximilian Knoll</name>
+			<organization>Translational RadiationOncology, DKFZ</organization>
+			<organizationUrl>http://www.dkfz.de/</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+		
+		<developer>
 			<name>Alex Prudencio</name>
 			<organization>Biomedical Imaging Group, EPFL</organization>
 			<organizationUrl>http://bigwww.epfl.ch/</organizationUrl>
