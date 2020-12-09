@@ -159,8 +159,6 @@ public class ParseParameters {
 		for (String key : paramsExpert) {
 			ret +=  key + "=" + parameters.getValue(key) + "|";
 		}
-
-		System.err.println(ret);
 		
 		return(ret);
 	}
