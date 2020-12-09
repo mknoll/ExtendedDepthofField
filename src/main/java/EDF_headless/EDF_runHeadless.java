@@ -32,6 +32,7 @@ public class EDF_runHeadless {
 
 		//validate xml parameter file
 		boolean valid = ParseParameters.validateXMLSchema(parameterFile);
+		//TODO throw exception ,exit?
 		this.parameterFile = parameterFile;
 		System.out.println("Parameter xml valid: " + valid);
 
@@ -83,7 +84,11 @@ public class EDF_runHeadless {
 		
 		//add metadata from xml
 		String prev = (String) out.getProperty("Info");
-		prev = prev + "//" + pp.getParamString();
+		if (prev.length() == 0) {
+			prev = pp.getParamString();
+		} else {
+			prev = prev + ";" + pp.getParamString();
+		}
 		out.setProperty("Info", prev); 
 		FileSaver fs = new FileSaver(out);
 		fs.saveAsTiff(outFile);
