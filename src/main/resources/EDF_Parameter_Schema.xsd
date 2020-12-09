@@ -6,7 +6,7 @@
 		<xs:complexType>
 			<xs:sequence>
 
-				<xs:element name="quality">
+				<xs:element name="quality"  minOccurs="0" maxOccurs="1">
 					<xs:simpleType>
 						<xs:restriction base="xs:unsignedByte">
 							<xs:minInclusive value="0" />
@@ -15,7 +15,7 @@
 					</xs:simpleType>
 				</xs:element>
 
-				<xs:element name="topology">
+				<xs:element name="topology"  minOccurs="0" maxOccurs="1">
 					<xs:simpleType>
 						<xs:restriction base="xs:unsignedByte">
 							<xs:minInclusive value="0" />
@@ -25,9 +25,134 @@
 				</xs:element>
 
 				<xs:element name="colorConversionMethod"
-					type="xs:integer" />
+					type="xs:integer"  minOccurs="0" maxOccurs="1" />
+									
+				<xs:element name="edfMethod"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="REAL_WAVELETS" />
+							<xs:enumeration value="SOBEL" />
+							<xs:enumeration value="VARIANCE" />
+							<xs:enumeration value="COMPLEX_WAVELETS" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="sigma"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:double">
+						        <xs:minExclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="sigmaDenoising"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:double">
+						        <xs:minExclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="rateDenoising"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:double">
+						        <xs:minExclusive value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="daubechielength"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedByte">
+							<xs:minExclusive value="0" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="splineOrder"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedByte">
+							<xs:minExclusive value="0" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
 
+				<xs:element name="varWindowSize"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedByte">
+							<xs:minExclusive value="0" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="medianWindowSize"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedByte">
+							<xs:minExclusive value="0" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				
+				<xs:element name="reassignment"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:boolean">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="subBandCC"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:boolean">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="majCC"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:boolean">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="doMorphoOpen"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:boolean">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="doMorphoClose"  minOccurs="0" maxOccurs="1"> 
+					<xs:simpleType>
+						<xs:restriction base="xs:boolean">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="doGaussian"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:boolean">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="doDenoising"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:boolean">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
+				<xs:element name="doMedian"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:boolean">
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
+
