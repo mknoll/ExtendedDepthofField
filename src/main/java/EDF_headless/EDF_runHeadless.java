@@ -11,7 +11,6 @@ import ij.io.Opener;
 public class EDF_runHeadless {
 	//Image of interest
 	private ImagePlus imp = null;
-	//TODO use File 
 	private String outFile = null;
 
 	private ParseParameters pp = null;
