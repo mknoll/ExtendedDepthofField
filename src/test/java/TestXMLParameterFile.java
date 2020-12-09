@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import EDF_headless.ParseParameters;
 
-public class XMLParameterFile {
+public class TestXMLParameterFile {
 	@Test
 	void validXMLEasy_1() {
 		//assertEquals();
