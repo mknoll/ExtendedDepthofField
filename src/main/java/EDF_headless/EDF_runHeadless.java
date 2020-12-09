@@ -90,6 +90,11 @@ public class EDF_runHeadless {
 	}
 
 	public static void main(String[] args) {	
+		if (args.length != 3) {
+			System.err.println("Usage: <infile.tiff> <parameter.xml> <outfile.tiff>");
+			System.exit(0);
+		} 
+		
 		//params: infile, parameter file, outfile		
 		EDF_runHeadless erh = new EDF_runHeadless(args[0], args[1], args[2]);
 		erh.run();
