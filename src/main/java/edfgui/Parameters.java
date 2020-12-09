@@ -32,14 +32,14 @@ public class Parameters {
 	public static final int QUALITY_MEDIUM = 2;
 	public static final int QUALITY_MH = 3;
 	public static final int QUALITY_HIGH = 4;
-	public int quality;
+	public int quality = -1; //TODO
 
 	public static final int SMOOTH_TOPO_NO = 0;
 	public static final int SMOOTH_TOPO_NM = 1;
 	public static final int SMOOTH_TOPO_MEDIUM = 2;
 	public static final int SMOOTH_TOPO_MV = 3;
 	public static final int SMOOTH_TOPO_VERY = 4;
-	public int topology;
+	public int topology = -1; //TODO
 	
 	public static final int COLOR_RGB = 0;
 	public static final int GRAYSCALE = 1;
