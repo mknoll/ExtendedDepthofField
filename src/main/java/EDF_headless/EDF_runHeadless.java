@@ -81,6 +81,7 @@ public class EDF_runHeadless {
 
 	public void save() {
 		ImagePlus out = edf.getComposite();
+		
 		//add metadata from xml
 		String prev = (String) out.getProperty("Info");
 		prev = prev + "//" + pp.getParamString();
@@ -95,7 +96,6 @@ public class EDF_runHeadless {
 			System.exit(0);
 		} 
 		
-		//params: infile, parameter file, outfile		
 		EDF_runHeadless erh = new EDF_runHeadless(args[0], args[1], args[2]);
 		erh.run();
 		erh.save();
