@@ -23,6 +23,7 @@
 
 package edfgui;
 
+import java.lang.reflect.Field;
 
 public class Parameters {
 	
@@ -31,13 +32,14 @@ public class Parameters {
 	public static final int QUALITY_MEDIUM = 2;
 	public static final int QUALITY_MH = 3;
 	public static final int QUALITY_HIGH = 4;
+	public int quality;
 
 	public static final int SMOOTH_TOPO_NO = 0;
 	public static final int SMOOTH_TOPO_NM = 1;
 	public static final int SMOOTH_TOPO_MEDIUM = 2;
 	public static final int SMOOTH_TOPO_MV = 3;
 	public static final int SMOOTH_TOPO_VERY = 4;
-	
+	public int topology;
 	
 	public static final int COLOR_RGB = 0;
 	public static final int GRAYSCALE = 1;
@@ -118,7 +120,7 @@ public class Parameters {
 	 * @param settings
 	 */
 	public void setQualitySettings(int settings){
-
+		quality= settings;
 		switch(settings){
 		case QUALITY_LOW:
 			edfMethod = ExtendedDepthOfField.SOBEL;
@@ -163,6 +165,8 @@ public class Parameters {
 	 * @param settings
 	 */
 	public void setTopologySettings(int settings){
+		topology=settings;
+		
 		switch(settings) {
 		case SMOOTH_TOPO_NO:
 			doMedian = false;
@@ -206,4 +210,61 @@ public class Parameters {
 		}
 	}
 
+	public void setValue(String key, Object value) {
+		Field f;
+		try {
+			f = this.getClass().getDeclaredField(key);
+			f.setAccessible(true);
+			if (value.getClass() == Integer.class) {
+				f.setInt(this, (Integer)value);
+			} else if (value.getClass() == Double.class) {
+				f.setDouble(this, (Double)value);
+			} else if (value.getClass() == Boolean.class) {
+				f.setBoolean(this, (Boolean)value);
+			} else {
+				System.err.println("unknown type!");
+			}
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SecurityException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	
+	public String getValue(String key) {
+		Field f;
+		String val = null;
+		try {
+			f = this.getClass().getDeclaredField(key);
+			Object o = f.get(this);
+			if (o.getClass() == Integer.class) {
+				val = Integer.toString((Integer)o);
+			} else if (o.getClass() == Double.class) {
+				val = Double.toString((Double)o);
+			} else if (o.getClass() == Boolean.class) {
+				val = Boolean.toString((Boolean)o);
+			}
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return (val);
+	}
 }

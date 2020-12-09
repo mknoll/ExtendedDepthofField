@@ -22,24 +22,72 @@ import edfgui.Parameters;
 
 public class ParseParameters {
 	private Parameters parameters;
-	
+	boolean expertMode = false;
 	
 	public ParseParameters(String parameterFile) {
-		
 		//get xml parameters
-		int qual = 1; //FIXME
-		int topology = 1; //FIXME
 		
+		//expert mode
+		String paramsInt[] = {"edfMethod","daubechielength", 
+				"splineOrder", "varWindowSize", "medianWindowSize",	"colorConversionMethod",};
+		String paramsDouble[] = {"sigma", "sigmaDenoising", "rateDenoising"};
+		String paramsBool[] = {"reassignment", "subBandCC", "majCC",
+				"doMorphoOpen", "doMorphoClose", "doGaussian", "doDenoising", "doMedian"};
+		
+		//easy mode
+		String paramsIntEasy[] = {"quality", "topology"};
+		
+		parameters = new Parameters();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
 		try {
 			builder = factory.newDocumentBuilder();
 			Document document = builder.parse(parameterFile);
 			Element rootElement = document.getDocumentElement();
+		
+			//get data / int
+			for (String key : paramsInt) {
+				String valS = getString(key, rootElement);
+				if (valS != null) {
+					parameters.setValue(key, Integer.parseInt(valS));
+					expertMode = true;
+					System.out.println("KEY -> VAL: " + key + " -> " + valS);
+				}
+			}
+			for (String key : paramsDouble) {
+				String valS = getString(key, rootElement);
+				if (valS != null) {
+					parameters.setValue(key, Double.parseDouble(valS));
+					expertMode = true;
+					System.out.println("KEY -> VAL: " + key + " -> " + valS);
+				}
+			}
+			for (String key : paramsBool) {
+				String valS = getString(key, rootElement);
+				if (valS != null) {
+					parameters.setValue(key, Boolean.parseBoolean(valS));
+					expertMode = true;
+					System.out.println("KEY -> VAL: " + key + " -> " + valS);
+				}
+			}
 			
-			//get data
-			qual =  Integer.parseInt(getString("quality", rootElement));
-			topology =  Integer.parseInt(getString("topology", rootElement));
+			// easy mode
+			for (String key : paramsIntEasy) {
+				String valS = getString(key, rootElement);
+				if (valS != null) {
+					if (key.equals("quality")) {
+						parameters.setQualitySettings(Integer.parseInt(valS));
+						System.out.println("KEY -> VAL: " + key + " -> " + valS);
+					} else if (key.equals("topology")) {
+						parameters.setTopologySettings(Integer.parseInt(valS));
+						System.out.println("KEY -> VAL: " + key + " -> " + valS);
+					}
+					if (expertMode) {
+						System.out.println("ACHTUNG: Expert mode Parameter mit Easy mode parametern überschrieben!");
+					}
+				}
+			}
+			
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -52,49 +100,9 @@ public class ParseParameters {
 		}
 
 		// -----------------
-		
-		parameters = new Parameters();
-		parameters.showTopology = true;
-
-
-		parameters.show3dView = true; 
-		parameters.colorConversionMethod = 0;		
-
-		// value range: 0-4; 
-		parameters.setQualitySettings(qual);
-		parameters.setTopologySettings(topology);
-		//parameters.showTopology = true; 	
+		// FIXME
+		parameters.show3dView = false; 
 		parameters.showTopology = false; 
-
-
-		
-		/*
-		colorConversionMethod = 0;
-		edfMethod = ExtendedDepthOfField.REAL_WAVELETS;
-		outputColorMap = GRAYSCALE;
-		
-		sigma = 2.0;
-		sigmaDenoising = 2.0;
-		rateDenoising = 10.0;
-		
-		daubechielength = 6;
-		splineOrder = 3;
-		nScales = maxScales;
-		varWindowSize = 3;
-		medianWindowSize = 3;
-		
-		reassignment = false;
-		subBandCC = false;
-		majCC = false;
-		doMorphoOpen = false;
-		doMorphoClose = false;
-		doGaussian = false;
-		doDenoising = false;
-		doMedian = false;
-		showTopology = false;
-		show3dView = false;
-		log = false;		
-		*/
 	}
 	
 	public Parameters getParameters() {
@@ -136,5 +144,24 @@ public class ParseParameters {
 			return false;
 		}
 		return true;
+	}
+	
+	public String getParamString() {
+		//expert mode
+		String paramsExpert[] = {"edfMethod","daubechielength", 
+				"splineOrder", "varWindowSize", "medianWindowSize",	
+				"colorConversionMethod","sigma", "sigmaDenoising", 
+				"rateDenoising","reassignment", "subBandCC", "majCC",
+				"doMorphoOpen", "doMorphoClose", "doGaussian", 
+				"doDenoising", "doMedian", "quality", "topology"};
+		
+		String ret = "";
+		for (String key : paramsExpert) {
+			ret +=  key + "=" + parameters.getValue(key) + "|";
+		}
+
+		System.err.println(ret);
+		
+		return(ret);
 	}
 }

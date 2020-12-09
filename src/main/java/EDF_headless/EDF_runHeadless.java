@@ -14,6 +14,7 @@ public class EDF_runHeadless {
 	//TODO use File 
 	private String outFile = null;
 
+	private ParseParameters pp = null;
 	private Parameters parameters = null;
 	private String parameterFile = null;
 
@@ -53,7 +54,7 @@ public class EDF_runHeadless {
 	}
 
 	private void readParameters() {
-		ParseParameters pp = new ParseParameters(parameterFile);
+		pp = new ParseParameters(parameterFile);
 		parameters = pp.getParameters();
 	}
 
@@ -81,8 +82,9 @@ public class EDF_runHeadless {
 	public void save() {
 		ImagePlus out = edf.getComposite();
 		//add metadata from xml
-		out.setProperty("Info", "ABC"); //TODO
-		
+		String prev = (String) out.getProperty("Info");
+		prev = prev + "//" + pp.getParamString();
+		out.setProperty("Info", prev); 
 		FileSaver fs = new FileSaver(out);
 		fs.saveAsTiff(outFile);
 	}
