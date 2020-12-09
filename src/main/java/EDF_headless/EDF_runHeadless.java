@@ -26,8 +26,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-//https://github.com/PoburkoLab/ExtendedDepthofField
-
 public class EDF_runHeadless {
 	//Image of interest
 	private ImagePlus imp = null;
@@ -75,8 +73,7 @@ public class EDF_runHeadless {
     }
 	
 	private void readParameters() {
-
-		//get xml w/ parameters
+		//get xml parameters
 		int qual = 1; //FIXME
 		int topology = 1; //FIXME
 		
@@ -101,7 +98,7 @@ public class EDF_runHeadless {
 			e.printStackTrace();
 		}
 
-		//
+		// -----------------
 		
 		parameters = new Parameters();
 		parameters.color = getColorMode();
@@ -155,17 +152,7 @@ public class EDF_runHeadless {
 		FileSaver fs = new FileSaver(out);
 		fs.saveAsTiff(outFile);
 	}
-
-	public static void main(String[] args) {	
-		//params: infile, parameter file, outfile	
-		//EDF_runHeadless erh = new EDF_runHeadless(args[0], args[1], args[2]);
 	
-		EDF_runHeadless erh = new EDF_runHeadless(args[0], args[1], args[2]);
-		erh.run();
-		erh.save();
-	}
-
-
 	private boolean validateXMLSchema(String xmlPath){	
 		try {
 			SchemaFactory factory = 
@@ -185,6 +172,14 @@ public class EDF_runHeadless {
 			return false;
 		}
 		return true;
+	}
+
+	
+	public static void main(String[] args) {	
+		//params: infile, parameter file, outfile		
+		EDF_runHeadless erh = new EDF_runHeadless(args[0], args[1], args[2]);
+		erh.run();
+		erh.save();
 	}
 
 }
