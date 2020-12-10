@@ -26,16 +26,16 @@ public class EDF_runHeadless {
 	 * @param parameterPath Path of parameter file for EDF
 	 */
 	public EDF_runHeadless(String filePath, String parameterFile, String outFile) {
-		//load file
-		Opener opener = new Opener();
-		imp = opener.openImage(filePath);
-
 		//validate xml parameter file
 		boolean valid = ParseParameters.validateXMLSchema(parameterFile);
 		//TODO throw exception ,exit?
 		this.parameterFile = parameterFile;
 		System.out.println("Parameter xml valid: " + valid);
 
+		//load file
+		Opener opener = new Opener();
+		imp = opener.openImage(filePath);
+		
 		//obtain parameters
 		// from xml file
 		readParameters();
@@ -84,7 +84,7 @@ public class EDF_runHeadless {
 		
 		//add metadata from xml
 		String prev = (String) out.getProperty("Info");
-		if (prev.length() == 0) {
+		if (prev == null) {
 			prev = pp.getParamString();
 		} else {
 			prev = prev + ";" + pp.getParamString();
