@@ -1,5 +1,9 @@
 package EDF_headless;
 
+import java.io.IOException;
+
+import org.xml.sax.SAXException;
+
 import edf.Tools;
 import edfgui.ExtendedDepthOfField_headless;
 import edfgui.Parameters;
@@ -27,10 +31,21 @@ public class EDF_runHeadless {
 	 */
 	public EDF_runHeadless(String filePath, String parameterFile, String outFile) {
 		//validate xml parameter file
-		boolean valid = ParseParameters.validateXMLSchema(parameterFile);
+		try {
+			ParseParameters.validateXMLSchema(parameterFile);
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Malformed parameter xml file or illegal values!");
+			e.printStackTrace();
+			System.exit(1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.err.println("Xml file ("+parameterFile+") not found!");
+			e.printStackTrace();
+			System.exit(1);
+		}
 		//TODO throw exception ,exit?
 		this.parameterFile = parameterFile;
-		System.out.println("Parameter xml valid: " + valid);
 
 		//load file
 		Opener opener = new Opener();

@@ -123,26 +123,20 @@ public class ParseParameters {
     }
 	
 	
-	public static boolean validateXMLSchema(String xmlPath){	
-		try {
-			SchemaFactory factory = 
-					SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			//Schema schema = factory.newSchema(new File(xsdPath));
-			
-			//Source schemaFile = new StreamSource(getClass().getClassLoader()
-			//	      .getResourceAsStream("EDF_Parameter_Schema.xsd"));
-			Source schemaFile = new StreamSource(ParseParameters.class.getClassLoader()
-				      .getResourceAsStream("EDF_Parameter_Schema.xsd"));
-			Schema schema = factory.newSchema(schemaFile);
-			
-			Validator validator = schema.newValidator();
-			validator.validate(new StreamSource(new File(xmlPath)));
-		} catch (IOException e) {
-			System.out.println("Exception: "+e.getMessage());
-		} catch(SAXException e) {
-			System.out.println("Exception: "+e.getMessage());
-			return false;
-		}
+	public static boolean validateXMLSchema(String xmlPath) throws SAXException, IOException{	
+		SchemaFactory factory = 
+				SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		//Schema schema = factory.newSchema(new File(xsdPath));
+		
+		//Source schemaFile = new StreamSource(getClass().getClassLoader()
+		//	      .getResourceAsStream("EDF_Parameter_Schema.xsd"));
+		Source schemaFile = new StreamSource(ParseParameters.class.getClassLoader()
+			      .getResourceAsStream("EDF_Parameter_Schema.xsd"));
+		Schema schema = factory.newSchema(schemaFile);
+		
+		Validator validator = schema.newValidator();
+		validator.validate(new StreamSource(new File(xmlPath)));
+		
 		return true;
 	}
 	

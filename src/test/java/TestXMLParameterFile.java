@@ -1,12 +1,16 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.xml.sax.SAXException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 
 import EDF_headless.ParseParameters;
 
 public class TestXMLParameterFile {
 	@Test
-	void validXMLEasy_1() {
+	void validXMLEasy_1() throws SAXException, IOException {
 		//assertEquals();
 		String parameterFile = ParseParameters.class.getClassLoader().getResource("validEasy_1.xml").getFile();
 		assertTrue(ParseParameters.validateXMLSchema(parameterFile));
@@ -29,8 +33,18 @@ public class TestXMLParameterFile {
 	@Test
 	void invalidXMLEasy_1() {
 		//assertEquals();
-		String parameterFile = ParseParameters.class.getClassLoader().getResource("invalidEasy_1.xml").getFile();
-		//TODO:  throw exception?
-		assertFalse(ParseParameters.validateXMLSchema(parameterFile));
+		final String parameterFile = ParseParameters.class.getClassLoader().getResource("invalidEasy_1.xml").getFile();
+		Assertions.assertThrows(SAXException.class, () -> { 
+			ParseParameters.validateXMLSchema(parameterFile);
+			});
+	}
+	
+	@Test
+	void invalidXML() {
+		//assertEquals();
+		final String parameterFile =  "nonExistantFile";
+		Assertions.assertThrows(IOException.class, () -> { 
+			ParseParameters.validateXMLSchema(parameterFile);
+			});
 	}
 }
