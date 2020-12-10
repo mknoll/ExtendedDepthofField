@@ -24,6 +24,17 @@ public class ParseParameters {
 	private Parameters parameters;
 	boolean expertMode = false;
 	
+	/**
+	 * Constructor 
+	 * 
+	 * Easy mode parameters (set via quality or topology) 
+	 * overwrite expert mode parameters, e.g. if easy mode 
+	 * parameters are set, all others are ignored.
+	 * If only expert mode parameters are set, quality and 
+	 * topology are set to -1
+	 * 
+	 * @param parameterFile Path to parameter xml file
+	 */
 	public ParseParameters(String parameterFile) {
 		//get xml parameters
 		
@@ -100,11 +111,16 @@ public class ParseParameters {
 		}
 
 		// -----------------
-		// FIXME
+		// TODO
 		parameters.show3dView = false; 
 		parameters.showTopology = false; 
 	}
 	
+	/**
+	 * Obtain Parameters instance
+	 * 
+	 * @return Parameters instance with set parameters
+	 */
 	public Parameters getParameters() {
 		return(parameters);
 	}
@@ -122,7 +138,16 @@ public class ParseParameters {
         return null;
     }
 	
-	
+	/**
+	 * Validates supplied xml paramter file against the xsd schema 
+	 * included in the resource folder 
+	 * 
+	 * @param xmlPath xml paramter file
+	 * @return true if the xml file could be validated
+	 * 
+	 * @throws SAXException malformed xml, illegal paramter values
+	 * @throws IOException file could not be found 
+	 */
 	public static boolean validateXMLSchema(String xmlPath) throws SAXException, IOException{	
 		SchemaFactory factory = 
 				SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -140,6 +165,12 @@ public class ParseParameters {
 		return true;
 	}
 	
+	/**
+	 * Aggregate all parameters which can be set via the xml parameter file
+	 * 
+	 * @return String concatenated String of all parameters (key=value) which can be set
+	 * via the parameter xml file. Separated by |
+	 */
 	public String getParamString() {
 		//expert mode
 		String paramsExpert[] = {"edfMethod","daubechielength", 
