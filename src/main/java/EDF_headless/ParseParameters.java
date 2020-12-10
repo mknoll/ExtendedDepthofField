@@ -94,7 +94,7 @@ public class ParseParameters {
 						System.out.println("KEY -> VAL: " + key + " -> " + valS);
 					}
 					if (expertMode) {
-						System.out.println("ACHTUNG: Expert mode Parameter mit Easy mode parametern überschrieben!");
+						System.out.println("Parameters from expert mode and easy mode specified!");
 					}
 				}
 			}
