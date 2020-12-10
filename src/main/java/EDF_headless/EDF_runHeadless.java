@@ -44,12 +44,16 @@ public class EDF_runHeadless {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		//TODO throw exception ,exit?
 		this.parameterFile = parameterFile;
 
 		//load file
 		Opener opener = new Opener();
 		imp = opener.openImage(filePath);
+		if (imp == null) {
+			//File could not be opened
+			System.err.println("File " + filePath + " could not be opened!");
+			System.exit(1);
+		}
 		
 		//obtain parameters
 		// from xml file
